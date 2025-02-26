@@ -16,7 +16,7 @@ public class Endereco {
     private String cidade;
     private String bairro;
     private String rua;
-    private String complemtento;
+    private String complemento;
     private String cep;
 
     public Long getId() {
@@ -59,12 +59,12 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public String getComplemtento() {
-        return complemtento;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setComplemtento(String complemtento) {
-        this.complemtento = complemtento;
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getCep() {
