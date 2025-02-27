@@ -3,13 +3,14 @@ package com.personal.gestao_de_funcionarios.service;
 
 import com.personal.gestao_de_funcionarios.model.Funcionario;
 import com.personal.gestao_de_funcionarios.repository.FuncionarioRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
@@ -18,10 +19,12 @@ public class FuncionarioService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
+    @Transactional(readOnly = true)
     public Funcionario findById(Long id){
         return funcionarioRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
+    @Transactional(readOnly = true)
     public List<Funcionario> listaTodos(){
         return funcionarioRepository.findAll();
     }
@@ -32,7 +35,7 @@ public class FuncionarioService {
 
     public Funcionario update(Funcionario funcionarioToUpdate, String email){
         Funcionario dbFuncionario = funcionarioRepository.findByEmail(email);
-        if (!dbFuncionario.getNome().equals(funcionarioToUpdate.getNome())){
+        if (!dbFuncionario.getEmail().equals(funcionarioToUpdate.getEmail())){
             throw new NoSuchElementException();
         }
         dbFuncionario.setNome(funcionarioToUpdate.getNome());

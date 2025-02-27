@@ -3,7 +3,8 @@ package com.personal.gestao_de_funcionarios.model;
 
 import jakarta.persistence.*;
 
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "tb_funcionario")
 public class Funcionario {
@@ -26,12 +27,10 @@ public class Funcionario {
     @Column(nullable = false)
     private String departamento;
 
-    @Column(nullable = false)
-    private List telefones;
+    private ArrayList<String> telefones;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Column(nullable = false)
-    private java.util.List<Endereco> enderecoList;
+    private List<Endereco> enderecoList;
 
     public Long getId() {
         return id;
@@ -81,11 +80,11 @@ public class Funcionario {
         this.departamento = departamento;
     }
 
-    public List getTelefones() {
+    public ArrayList<String> getTelefones() {
         return telefones;
     }
 
-    public void setTelefones(List telefones) {
+    public void setTelefones(ArrayList<String> telefones) {
         this.telefones = telefones;
     }
 
