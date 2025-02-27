@@ -1,10 +1,7 @@
 package com.personal.gestao_de_funcionarios.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "tb_endereco")
 public class Endereco {
@@ -12,11 +9,22 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
     private String estado;
+
+    @Column(nullable = true)
     private String cidade;
+
+    @Column(nullable = false)
     private String bairro;
+
+    @Column(nullable = false)
     private String rua;
+
+    @Column(nullable = true)
     private String complemento;
+
+    @Column(nullable = false)
     private String cep;
 
     public Long getId() {

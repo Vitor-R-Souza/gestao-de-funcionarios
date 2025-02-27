@@ -11,14 +11,26 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private Integer idade;
+
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String cargo;
+
+    @Column(nullable = false)
     private String departamento;
+
+    @Column(nullable = false)
     private List telefones;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Column(nullable = false)
     private java.util.List<Endereco> enderecoList;
 
     public Long getId() {
