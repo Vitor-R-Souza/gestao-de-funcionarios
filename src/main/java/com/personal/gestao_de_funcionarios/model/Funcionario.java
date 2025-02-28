@@ -3,14 +3,19 @@ package com.personal.gestao_de_funcionarios.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "tb_funcionario")
-public class Funcionario {
+public class Funcionario implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1l;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long funcionario_id;
 
     @Column(nullable = false)
     private String nome;
@@ -27,17 +32,24 @@ public class Funcionario {
     @Column(nullable = false)
     private String departamento;
 
-    private ArrayList<String> telefones;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "funcionario_telefones",
+            joinColumns = @JoinColumn(name = "funcionario_id")
+    )
+    @Column(name = "telefone")
+    private Set<String> telefones;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Endereco> enderecoList;
 
-    public Long getId() {
-        return id;
+    @OneToMany(mappedBy = "funcionario", fetch = FetchType.EAGER)
+    private Set<Endereco> enderecoList = new HashSet<>();
+
+    public Long getFuncionario_id() {
+        return funcionario_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setFuncionario_id(Long funcionario_id) {
+        this.funcionario_id = funcionario_id;
     }
 
     public String getNome() {
@@ -80,19 +92,19 @@ public class Funcionario {
         this.departamento = departamento;
     }
 
-    public ArrayList<String> getTelefones() {
+    public Set<String> getTelefones() {
         return telefones;
     }
 
-    public void setTelefones(ArrayList<String> telefones) {
+    public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
     }
 
-    public java.util.List<Endereco> getEnderecoList() {
+    public Set<Endereco> getEnderecoList() {
         return enderecoList;
     }
 
-    public void setEnderecoList(java.util.List<Endereco> enderecoList) {
+    public void setEnderecoList(Set<Endereco> enderecoList) {
         this.enderecoList = enderecoList;
     }
 }

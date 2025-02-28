@@ -3,11 +3,21 @@ package com.personal.gestao_de_funcionarios.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Entity(name = "tb_endereco")
-public class Endereco {
+public class Endereco implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1l;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Endereco_id;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "funcionario_id")
+    private Funcionario funcionario;
 
     @Column(nullable = true)
     private String estado;
@@ -28,11 +38,27 @@ public class Endereco {
     private String cep;
 
     public Long getId() {
-        return id;
+        return Endereco_id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.Endereco_id = id;
+    }
+
+    public Long getEndereco_id() {
+        return Endereco_id;
+    }
+
+    public void setEndereco_id(Long endereco_id) {
+        Endereco_id = endereco_id;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
 
     public String getEstado() {
@@ -82,4 +108,5 @@ public class Endereco {
     public void setCep(String cep) {
         this.cep = cep;
     }
+
 }

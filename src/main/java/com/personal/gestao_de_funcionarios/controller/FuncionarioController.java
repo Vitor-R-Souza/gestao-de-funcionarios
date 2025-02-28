@@ -3,6 +3,7 @@ package com.personal.gestao_de_funcionarios.controller;
 import com.personal.gestao_de_funcionarios.model.Funcionario;
 import com.personal.gestao_de_funcionarios.service.FuncionarioService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/funcionario")
+@Transactional
 public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
@@ -36,7 +38,7 @@ public class FuncionarioController {
         var funcCriado = funcionarioService.create(funcionario);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(funcCriado.getId())
+                .buildAndExpand(funcCriado.getFuncionario_id())
                 .toUri();
         return ResponseEntity.created(location).body(funcCriado);
     }
